@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/sfx_shieldUp.ogg-98f6f16fe7c052ef2a320ddc21a9488a.oggstr"
+
+[deps]
+
+source_file="res://Assets/spaceshooter/Bonus/sfx_shieldUp.ogg"
+dest_files=[ "res://.import/sfx_shieldUp.ogg-98f6f16fe7c052ef2a320ddc21a9488a.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

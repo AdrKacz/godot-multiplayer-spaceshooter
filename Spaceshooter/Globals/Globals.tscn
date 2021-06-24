@@ -1,0 +1,11 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Globals/Globals.gd" type="Script" id=1]
+[ext_resource path="res://Spaceships/OrangeSpaceship/OrangeSpaceship.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Spaceships/GreenSpaceship/GreenSpaceship.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Spaceships/RedSpaceship/RedSpaceship.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Spaceships/BlueSpaceship/BlueSpaceship.tscn" type="PackedScene" id=5]
+
+[node name="Globals" type="Node"]
+script = ExtResource( 1 )
+spaceships = [ ExtResource( 5 ), ExtResource( 3 ), ExtResource( 2 ), ExtResource( 4 ) ]

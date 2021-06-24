@@ -1,0 +1,56 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Assets/spaceshooter/PNG/playerShip1_blue.png" type="Texture" id=1]
+
+[sub_resource type="GDScript" id=2]
+script/source = "extends KinematicBody2D
+
+export var SPEED = 100
+
+puppet var puppet_velocity = Vector2()
+puppet var puppet_position = Vector2()
+
+func _ready():
+	pass
+	
+func initialise(info):
+	$Sprite.modulate = info.color
+
+func _physics_process(delta):
+	var velocity = Vector2(0, 0)
+	
+	if is_network_master():
+		if Input.is_action_pressed(\"ui_right\"):
+			velocity.x += 1
+		if Input.is_action_pressed(\"ui_left\"):
+			velocity.x -= 1
+		if Input.is_action_pressed(\"ui_down\"):
+			velocity.y += 1
+		if Input.is_action_pressed(\"ui_up\"):
+			velocity.y -= 1
+		
+		rset(\"puppet_velocity\", velocity)
+		rset(\"puppet_position\", position)
+	else:
+		velocity = puppet_velocity
+		position = puppet_position
+		
+	if velocity.length() > 0:
+		velocity = velocity.normalized() * SPEED
+		move_and_slide(velocity)
+	
+	if not is_network_master(): # Avoid jitter
+		puppet_position = position
+"
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 40, 30 )
+
+[node name="Client" type="KinematicBody2D"]
+script = SubResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="."]
+texture = ExtResource( 1 )
