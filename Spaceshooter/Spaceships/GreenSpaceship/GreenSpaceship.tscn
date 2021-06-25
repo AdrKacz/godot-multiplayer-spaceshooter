@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Assets/spaceshooter/PNG/playerShip1_green.png" type="Texture" id=1]
 [ext_resource path="res://Spaceships/Scripts/Spaceship.gd" type="Script" id=2]
 [ext_resource path="res://Spaceships/GreenSpaceship/GreenLaser.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Spaceships/Effects/Smoke.tscn" type="PackedScene" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 30, 40 )
@@ -10,6 +11,12 @@ extents = Vector2( 30, 40 )
 [node name="BlueSpaceship" type="KinematicBody2D"]
 script = ExtResource( 2 )
 laser = ExtResource( 3 )
+
+[node name="SmokeRight" parent="." instance=ExtResource( 4 )]
+position = Vector2( -30, 40 )
+
+[node name="SmokeLeft" parent="." instance=ExtResource( 4 )]
+position = Vector2( -30, -40 )
 
 [node name="Sprite" type="Sprite" parent="."]
 rotation = 1.5708

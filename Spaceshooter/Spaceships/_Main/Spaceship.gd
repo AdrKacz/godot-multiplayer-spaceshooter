@@ -1,21 +1,21 @@
 extends Node
 
+# Signals
 signal is_destroyed(spaceship)
 
+# Spaceship
 export (PackedScene) var SpaceshipController
 
-export var speed = 300
-export var target_epsilon = 10
-
+# Aim
 var _target = Vector2()
-var _velocity = Vector2()
-var _is_destroyed = true
-
 puppet var puppet_target = Vector2()
 
+# Information
+var _is_destroyed = true
+
+# Reference to Nodes
 var _spaceship
 var _laser_position
-
 onready var _lasers = $Lasers
 onready var _shoot_cool_down = $ShootCoolDown
 
@@ -50,6 +50,7 @@ puppet func initialise_spaceship(initial_is_destroyed, initial_position, initial
 master func call_for_initialisation():
 	rpc("initialise_spaceship", _is_destroyed, _spaceship.position, _spaceship.rotation)
 
+# Get target and shoot (spawning reinitialise target: need mouse movement for first move)
 func _input(event):
 #	Take input only if master or not destroyed
 	if not is_network_master() or _is_destroyed:
@@ -65,21 +66,16 @@ func _input(event):
 		rset("puppet_target", _target)
 		
 func _physics_process(delta):
+#	Move spaceship
 	if _is_destroyed:
 		return
 		
 #	Set target if puppet
 	if not is_network_master():
 		_target = puppet_target
-		
-	# Movement
-	var target_to_position = _target - _spaceship.position
-	if target_to_position.length_squared() < target_epsilon:
-		return
-		
-	_velocity = target_to_position.normalized() * speed
-	_spaceship.move_and_slide(_velocity)
-	_spaceship.look_at(_target)
+	
+#	Move spaceship toward target
+	_spaceship.spaceship_move_toward(_target, delta)
 	
 remotesync func trigger_shoot(trigger):
 	if trigger:

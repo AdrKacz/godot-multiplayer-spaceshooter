@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://Spaceships/Main/Spaceship.gd" type="Script" id=1]
+[ext_resource path="res://Spaceships/_Main/Spaceship.gd" type="Script" id=1]
 [ext_resource path="res://Spaceships/BlueSpaceship/BlueSpaceship.tscn" type="PackedScene" id=2]
 
 [node name="Spaceship" type="Node"]
